@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        width: 100%;
+        height: 555px;
+        background-color: #171717;
+        background-size: cover;
+      }
+
+      .top {
+        width: 100%;
+        height: 70px;
+        background-color: rgba(180, 37, 37, 0.973);
+        backdrop-filter: blur(18px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h2 {
+        font-size: 40px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 0, 0, 0.922),
+          rgb(0, 34, 255),
+          rgba(166, 0, 255, 0.922),
+          rgb(245, 0, 123),
+          rgb(245, 0, 123),
+          rgba(166, 0, 255, 0.922),
+          rgb(0, 34, 255),
+          rgba(255, 0, 0, 0.922)
+        );
+        animation: mov 10s linear infinite;
+        background-size: 800%;
+        width: 120px;
+        border-top-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        text-align: center;
+        color: #14171a;
+      }
+
+      @keyframes mov {
+        0% {
+          background-position: left;
+        }
+        50% {
+          background-position: center;
+        }
+        100% {
+          background-position: right;
+        }
+      }
+      /*   contain */
+
+      .contain {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 45px;
+        color: #929292c1;
+      }
+      #form {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 30px;
+        background-color: rgba(52, 52, 52, 0.318);
+        backdrop-filter: blur(18px);
+        margin-top: 20px;
+      }
+      #name {
+        width: 200px;
+        height: 40px;
+        border-radius: 30px;
+        background-color: #000000;
+        color: rgb(255, 251, 251);
+        margin-top: 20px;
+        text-align: center;
+        font-size: 15px;
+      }
+
+      #btn {
+        width: 80px;
+        height: 40px;
+        margin-top: 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bolder;
+        cursor: pointer;
+        background-color: #a06787;
+      }
+
+      .result {
+        width: 295px;
+        height: 300px;
+
+        border-radius: 30px;
+        text-align: center;
+        overflow-y: scroll;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-image: linear-gradient(red, blue);
+      }
+      .font {
+        color: #c0c0c3af;
+        font-size: 20px;
+        font-style: italic;
+        margin-top: 15px;
+      }
+
+      .copyRight {
+        width: 200px;
+        height: 30px;
+        background-color: #191a24;
+        margin-top: 15px;
+        border-radius: 30px;
+        color: rgba(255, 252, 249, 0.877);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease-in;
+      }
+      .copyRight:hover {
+        box-shadow: 0px 0px 20px rgba(223, 20, 206, 0.63);
+      }
+
+      @media (min-height: 600px) {
+        .container {
+          height: 900px;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- img = https://w.forfun.com/fetch/b3/b3372a046e900fc79829a17ea1e21c04.jpeg?h=600&r=0.5 -->
+
+    <div
+      class="container"
+      style="
+        background-image: url(https://images.pexels.com/photos/6478949/pexels-photo-6478949.jpeg?auto=compress&cs=tinysrgb&w=600);
+      "
+    >
+      <div class="top">
+        <h2>LOVE</h2>
+      </div>
+      <div class="contain">
+        <h1>Quote Genrate</h1>
+        <form id="form">
+          <div class="result">
+            <h1 class="font">Loading...</h1>
+          </div>
+        </form>
+        <button id="btn">Genrate</button>
+        <div class="copyRight">Create By Abhishek</div>
+      </div>
+    </div>
+
+    <script>
+      let search = document.querySelector("#name");
+      let button = document.querySelector("#btn");
+      let show = document.querySelector(".font");
+      let key = "";
+
+      button.addEventListener("click", () => {
+        act();
+      });
+
+      async function act() {
+        let api_url = ` https://api.quotable.io/quotes/Random`;
+
+        fun(api_url);
+      }
+
+      async function fun(url) {
+        const responce = await fetch(url);
+        const data = await responce.json();
+        console.log(data);
+        show.innerHTML = data[0].content;
+      }
+
+      act();
+    </script>
+  </body>
+</html>
